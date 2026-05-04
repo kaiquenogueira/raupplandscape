@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raupp Landscape — Crafted Outdoor Living · West Hartford, CT</title>
+<meta name="description" content="Raupp Landscape designs, builds and maintains exceptional residential landscapes across West Hartford, Avon, Farmington, Simsbury, Bloomfield and Hartford, CT. Year-round care from a 6+ year owner-operated team.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap">
+
+<style>
+/* ── TOKENS ───────────────────────────────────────────────────── */
+:root{
+  --forest:#1a3d2b;
+  --forest-dark:#102619;
+  --forest-deep:#0a1a10;
+  --gold:#b8923a;
+  --gold-lt:#c9a958;
+  --cream:#f4ede0;
+  --cream-dim:rgba(244,237,224,0.65);
+  --charcoal:#1c1c1c;
+
+  --font-display:"Cormorant Garamond", "Times New Roman", serif;
+  --font-body:"DM Sans", "Helvetica Neue", sans-serif;
+
+  --ease:cubic-bezier(0.16,1,0.3,1);
+  --ease-soft:cubic-bezier(0.4,0,0.2,1);
+
+  --max:1280px;
+  --gutter:clamp(1.25rem, 4vw, 3rem);
+}
+
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body{
+  font-family:var(--font-body);
+  font-weight:300;
+  color:var(--cream);
+  background:var(--charcoal);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg,video{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+
+body.cursor-active,
+body.cursor-active a,
+body.cursor-active button{ cursor:none; }
+
+/* ── PROGRESS BAR ─────────────────────────────────────────────── */
+.progress{
+  position:fixed; top:0; left:0;
+  height:2px; width:0%;
+  background:linear-gradient(90deg, var(--forest), var(--gold));
+  z-index:1000;
+  transition:width 0.05s linear;
+}
+
+/* ── CUSTOM CURSOR ───────────────────────────────────────────── */
+.cursor-dot,.cursor-ring{
+  position:fixed; top:0; left:0;
+  pointer-events:none;
+  z-index:9999;
+  opacity:0;
+  transform:translate(-50%,-50%);
+  will-change:transform, opacity;
+}
+.cursor-dot{
+  width:6px; height:6px;
+  background:var(--gold);
+  border-radius:50%;
+  transition:opacity 0.3s, transform 0.1s linear;
+}
+.cursor-ring{
+  width:36px; height:36px;
+  border:1px solid rgba(184,146,58,0.5);
+  border-radius:50%;
+  transition:opacity 0.3s, width 0.25s var(--ease), height 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.cursor-active .cursor-dot,
+.cursor-active .cursor-ring{ opacity:1; }
+.cursor-ring.is-hover{
+  width:56px; height:56px;
+  border-color:var(--gold);
+}
+
+/* ── NAV ─────────────────────────────────────────────────────── */
+.nav{
+  position:fixed; top:0; left:0; right:0;
+  z-index:100;
+  padding:1.1rem var(--gutter);
+  display:flex; align-items:center; justify-content:space-between;
+  background:transparent;
+  border-bottom:1px solid transparent;
+  transition:background 0.4s var(--ease-soft), backdrop-filter 0.4s var(--ease-soft), border-color 0.4s var(--ease-soft), padding 0.4s var(--ease-soft);
+}
+.nav.scrolled{
+  background:rgba(16,38,25,0.85);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom-color:rgba(184,146,58,0.18);
+  padding:0.75rem var(--gutter);
+}
+.nav__logo{
+  display:flex; align-items:center; gap:0.6rem;
+  color:var(--cream);
+}
+.nav__logo svg{ color:var(--gold); }
+.nav__logo span{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:1.4rem;
+  letter-spacing:0.01em;
+}
+.nav__links{
+  display:flex; gap:2.4rem;
+  list-style:none;
+}
+.nav__links a{
+  font-size:0.78rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--cream-dim);
+  transition:color 0.3s var(--ease);
+  position:relative;
+  padding:0.4rem 0;
+}
+.nav__links a::after{
+  content:''; position:absolute; left:0; bottom:0;
+  width:0; height:1px; background:var(--gold);
+  transition:width 0.4s var(--ease);
+}
+.nav__links a:hover{ color:var(--cream); }
+.nav__links a:hover::after{ width:100%; }
+.nav__cta{
+  display:inline-flex; align-items:center; gap:0.5rem;
+  padding:0.7rem 1.3rem;
+  background:var(--gold);
+  color:var(--charcoal);
+  font-size:0.78rem;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  font-weight:500;
+  clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition:background 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.nav__cta:hover{ background:var(--gold-lt); transform:translateY(-2px); }
+
+@media (max-width:780px){
+  .nav__links{ display:none; }
+}
+
+/* ── SCENE SYSTEM ─────────────────────────────────────────────── */
+.scene{
+  position:relative;
+}
+.scene__bg{
+  position:sticky;
+  top:0;
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+  margin-bottom:-100vh;
+  z-index:1;
+}
+.scene__bg-fallback{
+  position:absolute; inset:0;
+}
+.scene__bg video{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 1.2s var(--ease-soft);
+}
+.scene__bg video.is-active{ opacity:1; }
+.scene__bg::after{
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.35) 0%,
+    rgba(0,0,0,0.15) 40%,
+    rgba(0,0,0,0.55) 100%
+  );
+  pointer-events:none;
+}
+.scene__content{
+  position:relative;
+  z-index:2;
+  min-height:100vh;
+  padding:8rem var(--gutter) 6rem;
+  max-width:var(--max);
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+}
+
+/* Per-scene fallback gradients */
+#hero .scene__bg-fallback{
+  background:
+    radial-gradient(ellipse at 30% 70%, rgba(26,61,43,0.85), transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(184,146,58,0.15), transparent 50%),
+    linear-gradient(160deg, #0a1a10 0%, #1c1c1c 100%);
+}
+#hero .scene__bg::after{
+  background:
+    radial-gradient(ellipse 70% 60% at 30% 55%, rgba(0,0,0,0.65), rgba(0,0,0,0.25) 60%, transparent 80%),
+    linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.6) 100%);
+}
+#services .scene__bg-fallback{
+  background:linear-gradient(140deg, #1c1c1c 0%, #102619 60%, #1a3d2b 100%);
+}
+#gallery .scene__bg-fallback{
+  background:
+    radial-gradient(circle at 20% 0%, rgba(184,146,58,0.12), transparent 45%),
+    linear-gradient(180deg, #1c1c1c 0%, #0a1a10 100%);
+}
+#about .scene__bg-fallback{
+  background:
+    radial-gradient(ellipse at 70% 30%, rgba(26,61,43,0.6), transparent 65%),
+    linear-gradient(120deg, #102619 0%, #1c1c1c 100%);
+}
+#seasonal .scene__bg-fallback{
+  background:linear-gradient(90deg,
+    rgba(76,128,76,0.45) 0%,
+    rgba(184,146,58,0.35) 33%,
+    rgba(140,70,40,0.40) 66%,
+    rgba(60,90,120,0.45) 100%),
+    #0a1a10;
+}
+#cta .scene__bg-fallback{
+  background:
+    radial-gradient(ellipse at center, rgba(184,146,58,0.18), transparent 60%),
+    radial-gradient(ellipse at 50% 100%, rgba(26,61,43,0.6), transparent 70%),
+    #0a1a10;
+}
+
+/* ── TYPOGRAPHY ───────────────────────────────────────────────── */
+h1,h2,h3{
+  font-family:var(--font-display);
+  font-weight:600;
+  line-height:1.05;
+  letter-spacing:-0.01em;
+  color:var(--cream);
+}
+h1{ font-size:clamp(3rem, 7vw, 6.5rem); }
+h2{ font-size:clamp(2.4rem, 5vw, 4.5rem); }
+h3{ font-size:1.55rem; font-weight:400; }
+em{ font-style:italic; color:var(--gold); font-weight:400; }
+
+.section-label{
+  display:inline-flex; align-items:center; gap:0.8rem;
+  font-size:0.7rem;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--gold-lt);
+  margin-bottom:1.4rem;
+  font-weight:500;
+}
+.section-label::before{
+  content:'';
+  width:24px; height:1px;
+  background:var(--gold-lt);
+}
+
+/* ── BUTTONS ──────────────────────────────────────────────────── */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:0.6rem;
+  padding:1.05rem 1.9rem;
+  font-size:0.82rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  font-weight:500;
+  transition:transform 0.3s var(--ease), background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+  white-space:nowrap;
+}
+.btn--primary{
+  background:var(--gold);
+  color:var(--charcoal);
+  clip-path:polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+.btn--primary:hover{
+  background:var(--gold-lt);
+  transform:translateY(-2px);
+}
+.btn--ghost{
+  border:1px solid rgba(244,237,224,0.35);
+  color:var(--cream);
+  background:transparent;
+}
+.btn--ghost:hover{
+  border-color:var(--gold);
+  color:var(--gold);
+  transform:translateY(-2px);
+}
+
+/* ── ANIMATIONS ──────────────────────────────────────────────── */
+[data-animate],
+[data-animate-right],
+[data-animate-scale]{
+  opacity:0;
+  transition:opacity 0.85s var(--ease), transform 0.85s var(--ease);
+  will-change:opacity, transform;
+}
+[data-animate]{ transform:translateY(40px); }
+[data-animate-right]{ transform:translateX(40px); }
+[data-animate-scale]{ transform:scale(0.95); }
+
+[data-animate].visible,
+[data-animate-right].visible,
+[data-animate-scale].visible{
+  opacity:1;
+  transform:none;
+}
+
+@keyframes hero-rise{
+  from{ opacity:0; transform:translateY(30px); }
+  to{   opacity:1; transform:translateY(0); }
+}
+@keyframes scroll-pulse{
+  0%,100%{ transform:scaleY(1); opacity:0.7; }
+  50%{    transform:scaleY(0.6); opacity:1; }
+}
+
+/* ── HERO ─────────────────────────────────────────────────────── */
+.hero{
+  justify-content:center;
+}
+.hero__inner{
+  max-width:62%;
+}
+.hero__eyebrow,
+.hero__title,
+.hero__sub,
+.hero__ctas,
+.hero__scroll{
+  opacity:0;
+  animation:hero-rise 1s var(--ease) forwards;
+}
+.hero__eyebrow{ animation-delay:0.3s; }
+.hero__title{   animation-delay:0.5s; }
+.hero__sub{     animation-delay:0.7s; }
+.hero__ctas{    animation-delay:0.9s; }
+.hero__scroll{  animation-delay:1.4s; }
+
+.hero__eyebrow{
+  display:inline-flex; align-items:center; gap:0.6rem;
+  padding:0.45rem 0.95rem;
+  border:1px solid rgba(244,237,224,0.25);
+  background:rgba(0,0,0,0.25);
+  backdrop-filter:blur(6px);
+  font-size:0.72rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--cream);
+  margin-bottom:1.6rem;
+}
+.hero__eyebrow::before{
+  content:''; width:6px; height:6px; background:var(--gold); border-radius:50%;
+}
+.hero__title{
+  margin-bottom:1.6rem;
+}
+.hero__title span{ display:block; }
+.hero__title em{ font-style:italic; }
+.hero__sub{
+  font-size:clamp(1rem, 1.4vw, 1.15rem);
+  color:var(--cream-dim);
+  max-width:480px;
+  margin-bottom:2.4rem;
+}
+.hero__ctas{
+  display:flex; flex-wrap:wrap; gap:1rem;
+}
+.hero__scroll{
+  position:absolute;
+  bottom:2.5rem; left:50%;
+  transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:0.7rem;
+  font-size:0.65rem;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--cream-dim);
+}
+.hero__scroll::before{
+  content:'';
+  width:1px; height:42px;
+  background:var(--gold);
+  transform-origin:top;
+  animation:scroll-pulse 2s ease-in-out infinite;
+}
+
+@media (max-width:780px){
+  .hero__inner{ max-width:100%; }
+}
+
+/* ── SERVICES ─────────────────────────────────────────────────── */
+.services__head{ margin-bottom:3rem; max-width:680px; }
+.services__head h2 em{ font-style:italic; }
+.services__grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:2px;
+  background:rgba(184,146,58,0.12);
+  border:1px solid rgba(184,146,58,0.12);
+}
+.service-card{
+  padding:2.2rem 2rem;
+  background:rgba(16,38,25,0.62);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  display:flex; flex-direction:column; gap:0.8rem;
+  transition:background 0.4s var(--ease), transform 0.4s var(--ease), border-color 0.4s var(--ease);
+  border:1px solid transparent;
+  min-height:240px;
+}
+.service-card:hover{
+  background:rgba(16,38,25,0.85);
+  border-color:rgba(184,146,58,0.35);
+  transform:translateY(-4px);
+}
+.service-card__num{
+  font-family:var(--font-display);
+  font-size:3rem;
+  line-height:1;
+  color:var(--gold);
+  opacity:0.25;
+  font-weight:300;
+}
+.service-card__name{
+  font-family:var(--font-display);
+  font-size:1.55rem;
+  font-weight:400;
+  color:var(--cream);
+}
+.service-card__desc{
+  font-size:0.92rem;
+  color:var(--cream);
+  opacity:0.6;
+  line-height:1.65;
+}
+
+@media (max-width:780px){
+  .services__grid{ grid-template-columns:1fr; }
+}
+
+/* ── GALLERY ─────────────────────────────────────────────────── */
+.gallery__head{ margin-bottom:3rem; max-width:680px; }
+.gallery__head h2 em{ font-style:italic; }
+.gallery__grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  grid-auto-rows:200px;
+  gap:2px;
+  background:rgba(184,146,58,0.12);
+  border:1px solid rgba(184,146,58,0.12);
+}
+.gallery__tile{
+  position:relative;
+  overflow:hidden;
+  background:#0a1a10;
+}
+.gallery__tile img{
+  width:100%; height:100%;
+  object-fit:cover;
+  transition:transform 0.9s var(--ease), filter 0.6s var(--ease);
+  filter:saturate(0.92);
+}
+.gallery__tile:hover img{
+  transform:scale(1.06);
+  filter:saturate(1.05);
+}
+.gallery__tile::after{
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.5));
+  opacity:0; transition:opacity 0.4s var(--ease);
+  pointer-events:none;
+}
+.gallery__tile:hover::after{ opacity:1; }
+
+.gallery__tile--w2{ grid-column:span 2; }
+.gallery__tile--h2{ grid-row:span 2; }
+
+@media (max-width:1024px){
+  .gallery__grid{ grid-template-columns:repeat(3, 1fr); }
+  .gallery__tile--w2{ grid-column:span 1; }
+}
+@media (max-width:640px){
+  .gallery__grid{ grid-template-columns:repeat(2, 1fr); grid-auto-rows:160px; }
+  .gallery__tile--w2,.gallery__tile--h2{ grid-column:span 1; grid-row:span 1; }
+}
+
+/* ── LIGHTBOX ─────────────────────────────────────────────────── */
+.lightbox{
+  position:fixed; inset:0;
+  z-index:200;
+  background:rgba(10,26,16,0.96);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  display:flex; align-items:center; justify-content:center;
+  padding:clamp(1rem, 4vw, 3rem);
+  opacity:0; visibility:hidden;
+  transition:opacity 0.35s var(--ease-soft), visibility 0.35s var(--ease-soft);
+}
+.lightbox.is-open{ opacity:1; visibility:visible; }
+.lightbox__img{
+  max-width:100%; max-height:100%;
+  object-fit:contain;
+  box-shadow:0 30px 80px rgba(0,0,0,0.5);
+  transform:scale(0.96);
+  transition:transform 0.35s var(--ease);
+}
+.lightbox.is-open .lightbox__img{ transform:scale(1); }
+.lightbox__btn{
+  position:absolute;
+  width:48px; height:48px;
+  display:inline-flex; align-items:center; justify-content:center;
+  background:rgba(244,237,224,0.08);
+  border:1px solid rgba(244,237,224,0.18);
+  color:var(--cream);
+  transition:background 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.lightbox__btn:hover{ background:rgba(244,237,224,0.16); border-color:var(--gold); transform:translateY(-1px); }
+.lightbox__close{ top:1.2rem; right:1.2rem; }
+.lightbox__prev{ top:50%; left:1.2rem; transform:translateY(-50%); }
+.lightbox__next{ top:50%; right:1.2rem; transform:translateY(-50%); }
+.lightbox__prev:hover,.lightbox__next:hover{ transform:translateY(calc(-50% - 1px)); }
+.lightbox__counter{
+  position:absolute;
+  bottom:1.5rem; left:50%;
+  transform:translateX(-50%);
+  font-family:var(--font-display);
+  font-size:0.95rem;
+  color:var(--cream-dim);
+  letter-spacing:0.08em;
+}
+@media (max-width:640px){
+  .lightbox__prev{ left:0.6rem; }
+  .lightbox__next{ right:0.6rem; }
+  .lightbox__close{ top:0.8rem; right:0.8rem; }
+}
+body.lightbox-open{ overflow:hidden; }
+
+/* ── ABOUT ────────────────────────────────────────────────────── */
+.about__grid{
+  display:grid;
+  grid-template-columns:1.1fr 0.9fr;
+  gap:4rem;
+  align-items:start;
+}
+.about__intro h2{ margin-bottom:0.6rem; }
+.about__intro h2 em{ font-style:italic; }
+.about__sub{
+  font-family:var(--font-display);
+  font-style:italic;
+  font-size:1.3rem;
+  color:var(--gold);
+  margin-bottom:1.6rem;
+}
+.about__copy{
+  font-size:1rem;
+  color:var(--cream);
+  opacity:0.78;
+  margin-bottom:2rem;
+  max-width:520px;
+}
+.about__owner{
+  display:flex; align-items:center; gap:1.2rem;
+  margin-bottom:2.4rem;
+}
+.about__owner img{
+  width:110px; height:150px;
+  object-fit:cover;
+  object-position:center 22%;
+  border-radius:4px;
+  border:1px solid rgba(184,146,58,0.35);
+  filter:grayscale(0.15) contrast(1.05);
+  flex-shrink:0;
+}
+.about__owner-meta{
+  font-size:0.78rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--gold-lt);
+}
+.about__owner-meta strong{
+  display:block;
+  font-family:var(--font-display);
+  font-size:1.15rem;
+  letter-spacing:0;
+  text-transform:none;
+  font-weight:400;
+  color:var(--cream);
+  margin-bottom:0.25rem;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:2px;
+  background:rgba(184,146,58,0.15);
+  border:1px solid rgba(184,146,58,0.15);
+}
+.stat{
+  padding:1.5rem 1.4rem;
+  background:rgba(16,38,25,0.62);
+  backdrop-filter:blur(10px);
+}
+.stat__num{
+  font-family:var(--font-display);
+  font-size:2.4rem;
+  font-weight:400;
+  color:var(--gold);
+  line-height:1;
+  margin-bottom:0.4rem;
+}
+.stat__label{
+  font-size:0.7rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--cream-dim);
+}
+
+.review{
+  position:relative;
+  padding:2.4rem 2.2rem;
+  background:rgba(10,26,16,0.7);
+  backdrop-filter:blur(14px);
+  border-left:3px solid var(--gold);
+}
+.review__stars{
+  display:flex; gap:0.25rem;
+  color:var(--gold);
+  margin-bottom:1.4rem;
+}
+.review__quote{
+  font-family:var(--font-display);
+  font-style:italic;
+  font-size:1.4rem;
+  line-height:1.45;
+  color:var(--cream);
+  margin-bottom:1.6rem;
+}
+.review__author{
+  font-size:0.78rem;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--gold-lt);
+  margin-bottom:1.2rem;
+}
+.review__author strong{
+  display:block;
+  font-family:var(--font-display);
+  font-size:1.05rem;
+  letter-spacing:0;
+  text-transform:none;
+  font-weight:400;
+  color:var(--cream);
+  margin-bottom:0.2rem;
+}
+.review__link{
+  display:inline-flex; align-items:center; gap:0.4rem;
+  font-size:0.78rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--gold-lt);
+  border-bottom:1px solid rgba(201,169,88,0.5);
+  padding-bottom:0.2rem;
+  transition:color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.review__link:hover{ color:var(--cream); border-color:var(--cream); }
+
+@media (max-width:880px){
+  .about__grid{ grid-template-columns:1fr; gap:3rem; }
+}
+
+/* ── SEASONAL ─────────────────────────────────────────────────── */
+.seasonal__head{ margin-bottom:3rem; max-width:680px; }
+.seasonal__head h2 em{ font-style:italic; }
+.seasonal__grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:2px;
+  background:rgba(184,146,58,0.12);
+  border:1px solid rgba(184,146,58,0.12);
+}
+.season-card{
+  padding:2.2rem 1.8rem;
+  background:rgba(10,26,16,0.7);
+  backdrop-filter:blur(12px);
+  display:flex; flex-direction:column; gap:1rem;
+  min-height:300px;
+  transition:background 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.season-card:hover{
+  background:rgba(16,38,25,0.88);
+  transform:translateY(-6px);
+}
+.season-card__icon{
+  width:34px; height:34px;
+  color:var(--gold);
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.season-card__icon svg{ width:100%; height:100%; }
+.season-card__name{
+  font-family:var(--font-display);
+  font-size:1.6rem;
+  color:var(--gold);
+  font-weight:400;
+}
+.season-card ul{
+  list-style:none;
+  display:flex; flex-direction:column; gap:0.55rem;
+  font-size:0.92rem;
+  color:var(--cream);
+  opacity:0.78;
+  margin-top:0.4rem;
+}
+.season-card li{
+  display:flex; align-items:flex-start; gap:0.65rem;
+}
+.season-card li::before{
+  content:'';
+  width:5px; height:5px;
+  background:var(--gold);
+  border-radius:50%;
+  margin-top:0.55rem;
+  flex-shrink:0;
+}
+
+@media (max-width:980px){
+  .seasonal__grid{ grid-template-columns:repeat(2, 1fr); }
+}
+@media (max-width:540px){
+  .seasonal__grid{ grid-template-columns:1fr; }
+}
+
+/* ── CTA FINAL ────────────────────────────────────────────────── */
+.cta-final{
+  align-items:center; justify-content:center;
+  text-align:center;
+}
+.cta-final__inner{
+  max-width:680px;
+  margin:0 auto;
+  display:flex; flex-direction:column; align-items:center; gap:1.4rem;
+}
+.cta-final h2 em{ font-style:italic; }
+.cta-final__sub{
+  font-size:1.05rem;
+  color:var(--cream-dim);
+  max-width:520px;
+  margin-bottom:1rem;
+}
+.cta-final__actions{
+  display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:center;
+}
+.phone-badge{
+  display:inline-flex; align-items:center; gap:0.7rem;
+  padding:0.95rem 1.6rem;
+  background:rgba(244,237,224,0.06);
+  border:1px solid rgba(244,237,224,0.18);
+  backdrop-filter:blur(10px);
+  font-family:var(--font-display);
+  font-size:1.4rem;
+  font-weight:400;
+  color:var(--cream);
+  transition:background 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.phone-badge:hover{
+  background:rgba(244,237,224,0.1);
+  border-color:var(--gold);
+  transform:translateY(-2px);
+}
+.phone-badge svg{ color:var(--gold); }
+
+/* ── ESTIMATE FORM ────────────────────────────────────────────── */
+.estimate-form{
+  width:100%;
+  max-width:520px;
+  margin:1rem auto 0;
+  display:grid; gap:0.85rem;
+  text-align:left;
+}
+.estimate-form__row{
+  display:grid; grid-template-columns:1fr 1fr; gap:0.85rem;
+}
+.estimate-form label{
+  display:flex; flex-direction:column; gap:0.4rem;
+  font-size:0.7rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--gold-lt);
+  font-weight:500;
+}
+.estimate-form input,
+.estimate-form textarea{
+  font-family:var(--font-body);
+  font-size:1rem;
+  color:var(--cream);
+  background:rgba(244,237,224,0.04);
+  border:1px solid rgba(244,237,224,0.18);
+  padding:0.85rem 1rem;
+  width:100%;
+  min-height:48px;
+  letter-spacing:0;
+  text-transform:none;
+  transition:border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.estimate-form input:focus,
+.estimate-form textarea:focus{
+  outline:none;
+  border-color:var(--gold);
+  background:rgba(244,237,224,0.08);
+}
+.estimate-form input::placeholder,
+.estimate-form textarea::placeholder{
+  color:var(--cream-dim);
+  font-weight:300;
+}
+.estimate-form textarea{
+  min-height:110px;
+  resize:vertical;
+  line-height:1.5;
+}
+.estimate-form__submit{
+  justify-self:start;
+  margin-top:0.4rem;
+}
+@media (max-width:540px){
+  .estimate-form__row{ grid-template-columns:1fr; }
+  .estimate-form__submit{ justify-self:stretch; width:100%; }
+}
+
+/* ── FOOTER ──────────────────────────────────────────────────── */
+.footer{
+  position:relative;
+  z-index:5;
+  background:var(--forest-deep);
+  border-top:1px solid rgba(184,146,58,0.15);
+  padding:5rem var(--gutter) 2rem;
+}
+.footer__grid{
+  max-width:var(--max);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  gap:3rem;
+  padding-bottom:3rem;
+}
+.footer__col h4{
+  font-family:var(--font-body);
+  font-size:0.72rem;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--gold-lt);
+  font-weight:500;
+  margin-bottom:1.4rem;
+}
+.footer__brand{
+  display:flex; align-items:center; gap:0.6rem;
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:1.4rem;
+  color:var(--cream);
+  margin-bottom:1rem;
+}
+.footer__brand svg{ color:var(--gold); }
+.footer__tag{
+  font-size:0.95rem;
+  color:var(--cream);
+  opacity:0.65;
+  max-width:340px;
+  margin-bottom:1.6rem;
+}
+.footer__social{
+  display:flex; gap:0.5rem;
+}
+.footer__social a{
+  width:40px; height:40px;
+  display:inline-flex; align-items:center; justify-content:center;
+  border:1px solid rgba(184,146,58,0.3);
+  color:var(--cream);
+  transition:background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.footer__social a svg{ width:16px; height:16px; }
+.footer__social a:hover{
+  background:var(--gold); color:var(--charcoal); border-color:var(--gold);
+}
+.footer__col ul{
+  list-style:none;
+  display:flex; flex-direction:column; gap:0.7rem;
+}
+.footer__col li a{
+  font-size:0.92rem;
+  color:var(--cream);
+  opacity:0.65;
+  transition:opacity 0.3s var(--ease), color 0.3s var(--ease);
+}
+.footer__col li a:hover{ opacity:1; color:var(--gold); }
+.footer__bottom{
+  max-width:var(--max);
+  margin:0 auto;
+  padding-top:2rem;
+  border-top:1px solid rgba(244,237,224,0.08);
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:0.78rem;
+  color:var(--cream-dim);
+  flex-wrap:wrap; gap:0.8rem;
+}
+
+@media (max-width:780px){
+  .footer__grid{ grid-template-columns:1fr; gap:2.4rem; }
+  .footer__bottom{ flex-direction:column; align-items:flex-start; }
+}
+
+/* ── A11Y: SKIP LINK ─────────────────────────────────────────── */
+.skip-link{
+  position:fixed; top:-100px; left:1rem;
+  z-index:2000;
+  padding:0.85rem 1.3rem;
+  background:var(--gold);
+  color:var(--charcoal);
+  font-size:0.78rem;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  font-weight:500;
+  transition:top 0.25s var(--ease);
+}
+.skip-link:focus{ top:1rem; outline:2px solid var(--cream); outline-offset:3px; }
+
+/* ── A11Y: FOCUS VISIBLE ─────────────────────────────────────── */
+:focus{ outline:none; }
+:focus-visible{
+  outline:2px solid var(--gold);
+  outline-offset:3px;
+  border-radius:2px;
+}
+.btn:focus-visible,
+.nav__cta:focus-visible,
+.phone-badge:focus-visible{ outline-offset:4px; }
+
+/* ── MOBILE NAV ──────────────────────────────────────────────── */
+.nav__toggle{
+  display:none;
+  width:44px; height:44px;
+  flex-direction:column; align-items:center; justify-content:center;
+  gap:5px;
+  position:relative; z-index:101;
+}
+.nav__toggle span{
+  display:block; width:22px; height:1.5px;
+  background:var(--cream);
+  transition:transform 0.3s var(--ease), opacity 0.3s var(--ease);
+  transform-origin:center;
+}
+.nav__toggle.is-open span:nth-child(1){ transform:translateY(3.25px) rotate(45deg); }
+.nav__toggle.is-open span:nth-child(2){ transform:translateY(-3.25px) rotate(-45deg); }
+
+.nav__drawer{
+  position:fixed; inset:0;
+  z-index:99;
+  background:rgba(10,26,16,0.97);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:2.4rem;
+  padding:6rem var(--gutter) 3rem;
+  opacity:0; visibility:hidden;
+  transition:opacity 0.4s var(--ease-soft), visibility 0.4s var(--ease-soft);
+}
+.nav__drawer.is-open{ opacity:1; visibility:visible; }
+.nav__drawer ul{
+  list-style:none;
+  display:flex; flex-direction:column; gap:1.6rem;
+  text-align:center;
+}
+.nav__drawer ul a{
+  font-family:var(--font-display);
+  font-size:2rem;
+  color:var(--cream);
+  font-weight:400;
+  letter-spacing:0.01em;
+  transition:color 0.3s var(--ease);
+}
+.nav__drawer ul a:hover{ color:var(--gold); }
+.nav__drawer .btn{ margin-top:1rem; }
+
+body.nav-open{ overflow:hidden; }
+
+@media (max-width:780px){
+  .nav__toggle{ display:flex; }
+  .nav__cta{ display:none; }
+}
+
+/* ── PERFORMANCE: DROP HEAVY BLURS ON MOBILE ─────────────────── */
+@media (max-width:780px){
+  .service-card,
+  .stat,
+  .review,
+  .season-card,
+  .phone-badge,
+  .hero__eyebrow{
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+  .service-card{ background:rgba(16,38,25,0.92); }
+  .stat{ background:rgba(16,38,25,0.92); }
+  .review{ background:rgba(10,26,16,0.92); }
+  .season-card{ background:rgba(10,26,16,0.92); }
+  .phone-badge{ background:rgba(244,237,224,0.1); }
+  .hero__eyebrow{ background:rgba(0,0,0,0.55); }
+}
+
+/* ── REDUCED MOTION ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:0.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.001ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div class="progress" id="progress"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+<!-- ── NAV ────────────────────────────────────────────────── -->
+<nav class="nav" id="nav">
+  <a href="#hero" class="nav__logo" aria-label="Raupp Landscape — home">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5c0 1.92 2.05 3.65 4 4 .79.14 1.5.5 2.5.5 0-1.5-1.34-2.74-3-3-3-.5-3-2-3-2 3-2.5 6.5-3 11-3.25z"/></svg>
+    <span>Raupp Landscape</span>
+  </a>
+  <ul class="nav__links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#cta">Contact</a></li>
+  </ul>
+  <a href="tel:+18602451661" class="nav__cta">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.05 15.05 0 0 1-6.59-6.58l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"/></svg>
+    Call Now
+  </a>
+  <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer">
+    <span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav__drawer" id="navDrawer" aria-hidden="true" role="dialog" aria-label="Site menu">
+  <ul>
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#cta">Contact</a></li>
+  </ul>
+  <a href="tel:+18602451661" class="btn btn--primary">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.05 15.05 0 0 1-6.59-6.58l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"/></svg>
+    (860) 245-1661
+  </a>
+</div>
+
+<main id="main">
+
+<!-- ── HERO ───────────────────────────────────────────────── -->
+<section class="scene" id="hero" data-video="public/landing/video/hero-web.mp4">
+  <div class="scene__bg">
+    <div class="scene__bg-fallback"></div>
+    <video muted playsinline loop preload="none" poster="public/landing/video/poster.jpg">
+      <source src="public/landing/video/hero-web.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="scene__content hero">
+    <div class="hero__inner">
+      <div class="hero__eyebrow">West Hartford, CT · Est. 2019</div>
+      <h1 class="hero__title">
+        <span>Outdoor living,</span>
+        <span>thoughtfully built &amp;</span>
+        <span><em>endlessly cared for.</em></span>
+      </h1>
+      <p class="hero__sub">From bespoke garden design to year-round upkeep and snow removal, Raupp Landscape transforms Connecticut homes into landscapes that grow more beautiful every season.</p>
+      <div class="hero__ctas">
+        <a href="#cta" class="btn btn--primary">Request a Free Estimate</a>
+        <a href="#services" class="btn btn--ghost">Explore Services</a>
+      </div>
+    </div>
+    <div class="hero__scroll">Scroll</div>
+  </div>
+</section>
+
+<!-- ── SERVICES ───────────────────────────────────────────── -->
+<section class="scene" id="services" data-video="public/landing/video/services.mp4">
+  <div class="scene__bg">
+    <div class="scene__bg-fallback"></div>
+    <video muted playsinline loop preload="none">
+      <source src="public/landing/video/services.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="scene__content services">
+    <div class="services__head" data-animate>
+      <span class="section-label">What We Do</span>
+      <h2>Six disciplines, one <em>standard.</em></h2>
+    </div>
+    <div class="services__grid">
+      <article class="service-card" data-animate style="transition-delay:0.05s">
+        <span class="service-card__num">01</span>
+        <h3 class="service-card__name">Lawn Care &amp; Maintenance</h3>
+        <p class="service-card__desc">Weekly mowing, edging and fertilization programs that keep your turf dense, deep-green and disease-resistant from April through November.</p>
+      </article>
+      <article class="service-card" data-animate style="transition-delay:0.15s">
+        <span class="service-card__num">02</span>
+        <h3 class="service-card__name">Garden Design &amp; Planting</h3>
+        <p class="service-card__desc">Custom planting plans tuned to your soil and exposure — perennials, native shrubs and seasonal color that mature into a layered, four-season landscape.</p>
+      </article>
+      <article class="service-card" data-animate style="transition-delay:0.25s">
+        <span class="service-card__num">03</span>
+        <h3 class="service-card__name">Hardscaping &amp; Patios</h3>
+        <p class="service-card__desc">Bluestone patios, paver walkways, retaining walls and stone edging built to last decades. We obsess over drainage, base prep and clean lines.</p>
+      </article>
+      <article class="service-card" data-animate style="transition-delay:0.35s">
+        <span class="service-card__num">04</span>
+        <h3 class="service-card__name">Landscape Lighting</h3>
+        <p class="service-card__desc">Low-voltage LED systems that draw the eye to specimen trees, façades and pathways — extending every garden well past sunset.</p>
+      </article>
+      <article class="service-card" data-animate style="transition-delay:0.45s">
+        <span class="service-card__num">05</span>
+        <h3 class="service-card__name">Snow Removal</h3>
+        <p class="service-card__desc">24/7 storm response across West Hartford and surrounding towns. Driveways, walkways and entries cleared, salted and ready before sunrise.</p>
+      </article>
+      <article class="service-card" data-animate style="transition-delay:0.55s">
+        <span class="service-card__num">06</span>
+        <h3 class="service-card__name">Seasonal Cleanup</h3>
+        <p class="service-card__desc">Spring openings and fall cleanups done right — leaf removal, bed cutbacks, dethatching and winter prep that protect your investment year over year.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY ────────────────────────────────────────────── -->
+<section class="scene" id="gallery">
+  <div class="scene__bg">
+    <div class="scene__bg-fallback"></div>
+  </div>
+  <div class="scene__content gallery">
+    <div class="gallery__head" data-animate>
+      <span class="section-label">Selected Work</span>
+      <h2>Recent <em>projects.</em></h2>
+    </div>
+    <div class="gallery__grid">
+      <a class="gallery__tile gallery__tile--w2 gallery__tile--h2" href="public/projects/project-01.jpg" target="_blank" rel="noopener" data-animate-scale style="transition-delay:0.05s">
+        <img src="public/projects/project-01.jpg" alt="Featured landscape project" loading="lazy">
+      </a>
+      <a class="gallery__tile" href="public/projects/project-02.jpg" target="_blank" rel="noopener" data-animate-scale style="transition-delay:0.10s">
+        <img src="public/projects/project-02.jpg" alt="Garden bed installation" loading="lazy">
+      </a>
+      <a class="gallery__tile" href="public/projects/project-03.jpg" target="_blank" rel="noopener" data-animate-scale style="transition-delay:0.15s">
+        <img src="public/projects/project-03.jpg" alt="Stone hardscape" loading="lazy">
+      </a>
+      <a class="gallery__tile" href="public/projects/project-04.jpg" target="_blank" rel="noopener" data-animate-scale style="transition-delay:0.20s">
+        <img src="public/projects/project-04.jpg" alt="Patio detail" loading="lazy">
+      </a>
+      <a class="gallery__tile gallery__tile--h2" href="public/projects/project-05.jpg" target="_blank" rel="noopener" data-animate-scale style="transition-delay:0.25s">
+        <img src="public/projects/project-05.jpg" alt="Mature lawn maintenance" loading="lazy">
+      </a>
+      <a class="gallery__tile" href="public/projects/project-06.jpg" target="_blank" rel="noopener" data-animate-scale style="transition-delay:0.30s">
+        <img src="public/projects/project-06.jpg" alt="Pathway lighting" loading="lazy">
+      </a>
+      <a class="gallery__tile" href="public/projects/project-07.jpg" target="_blank" rel="noopener" data-animate-scale style="transition-delay:0.35s">
+        <img src="public/projects/project-07.jpg" alt="Mulched plantings" loading="lazy">
+      </a>
+      <a class="gallery__tile gallery__tile--w2" href="public/projects/project-08.jpg" target="_blank" rel="noopener" data-animate-scale style="transition-delay:0.40s">
+        <img src="public/projects/project-08.jpg" alt="Backyard transformation" loading="lazy">
+      </a>
+      <a class="gallery__tile" href="public/projects/project-09.jpg" target="_blank" rel="noopener" data-animate-scale style="transition-delay:0.45s">
+        <img src="public/projects/project-09.jpg" alt="Front yard refresh" loading="lazy">
+      </a>
+      <a class="gallery__tile" href="public/projects/project-10.jpg" target="_blank" rel="noopener" data-animate-scale style="transition-delay:0.50s">
+        <img src="public/projects/project-10.jpg" alt="Seasonal color planting" loading="lazy">
+      </a>
+      <a class="gallery__tile gallery__tile--w2" href="public/projects/project-11.jpg" target="_blank" rel="noopener" data-animate-scale style="transition-delay:0.55s">
+        <img src="public/projects/project-11.jpg" alt="Completed property" loading="lazy">
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT / PROOF ─────────────────────────────────────── -->
+<section class="scene" id="about" data-video="public/landing/video/about.mp4">
+  <div class="scene__bg">
+    <div class="scene__bg-fallback"></div>
+    <video muted playsinline loop preload="none">
+      <source src="public/landing/video/about.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="scene__content">
+    <div class="about__grid">
+      <div class="about__intro" data-animate>
+        <span class="section-label">The Hands Behind the Work</span>
+        <h2>Meet Gustavo <em>Raupp.</em></h2>
+        <p class="about__sub">Owner-operator. On every property, every week.</p>
+        <p class="about__copy">Six years ago I started Raupp Landscape with a simple promise: every yard I take on, I treat as if it were my own. Today our small crew cares for properties from West Hartford to Simsbury — and I'm still on every one of them, because that's the only way the work stays this good.</p>
+
+        <div class="about__owner">
+          <img src="public/brand/owner.jpg" alt="Gustavo Raupp, owner of Raupp Landscape">
+          <div class="about__owner-meta">
+            <strong>Gustavo Raupp</strong>
+            Founder &amp; Lead Crew
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><div class="stat__num">6+</div><div class="stat__label">Years Serving CT</div></div>
+          <div class="stat"><div class="stat__num">200+</div><div class="stat__label">Properties Cared For</div></div>
+          <div class="stat"><div class="stat__num">100%</div><div class="stat__label">Licensed &amp; Insured</div></div>
+          <div class="stat"><div class="stat__num">5★</div><div class="stat__label">Average Review</div></div>
+        </div>
+      </div>
+
+      <aside class="review" data-animate-right>
+        <div class="review__stars" aria-label="5 out of 5 stars">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        </div>
+        <p class="review__quote">“Fantastic attention to detail. Gustavo and his crew transformed our front yard and have kept it pristine through every season since.”</p>
+        <div class="review__author">
+          <strong>Jordan Cooke</strong>
+          Avon, CT
+        </div>
+        <a href="https://share.google/" target="_blank" rel="noopener" class="review__link">Read more reviews →</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ── SEASONAL ──────────────────────────────────────────── -->
+<section class="scene" id="seasonal" data-video="public/landing/video/seasonal.mp4">
+  <div class="scene__bg">
+    <div class="scene__bg-fallback"></div>
+    <video muted playsinline loop preload="none">
+      <source src="public/landing/video/seasonal.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="scene__content">
+    <div class="seasonal__head" data-animate>
+      <span class="section-label">A Year on the Property</span>
+      <h2>Care that <em>follows the seasons.</em></h2>
+    </div>
+    <div class="seasonal__grid">
+      <article class="season-card" data-animate style="transition-delay:0.05s">
+        <span class="season-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10"/><path d="M12 21V11"/><path d="M12 11C8.5 11 6 8.5 6 5c3.5 0 6 2.5 6 6z"/><path d="M12 11c0-3.5 2.5-6 6-6 0 3.5-2.5 6-6 6z"/></svg>
+        </span>
+        <h3 class="season-card__name">Spring</h3>
+        <ul>
+          <li>Spring cleanup &amp; debris removal</li>
+          <li>Mulch refresh &amp; bed edging</li>
+          <li>Aeration &amp; first fertilization</li>
+          <li>Perennial division &amp; planting</li>
+        </ul>
+      </article>
+      <article class="season-card" data-animate style="transition-delay:0.15s">
+        <span class="season-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </span>
+        <h3 class="season-card__name">Summer</h3>
+        <ul>
+          <li>Weekly mowing &amp; edging</li>
+          <li>Hedge trimming &amp; pruning</li>
+          <li>Irrigation tuning</li>
+          <li>Annual color rotations</li>
+        </ul>
+      </article>
+      <article class="season-card" data-animate style="transition-delay:0.25s">
+        <span class="season-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-10 1 7-3 16-2 17z"/><path d="M2 22l8-9"/></svg>
+        </span>
+        <h3 class="season-card__name">Autumn</h3>
+        <ul>
+          <li>Leaf removal &amp; haul-off</li>
+          <li>Lawn over-seeding</li>
+          <li>Final mow &amp; cutbacks</li>
+          <li>Winter prep for hardscape</li>
+        </ul>
+      </article>
+      <article class="season-card" data-animate style="transition-delay:0.35s">
+        <span class="season-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/><path d="M9 5l3-3 3 3M9 19l3 3 3-3M5 9L2 12l3 3M19 9l3 3-3 3"/></svg>
+        </span>
+        <h3 class="season-card__name">Winter</h3>
+        <ul>
+          <li>24/7 snow plowing</li>
+          <li>Walkway shoveling &amp; salting</li>
+          <li>Storm-priority response</li>
+          <li>Seasonal contracts available</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINAL ─────────────────────────────────────────── -->
+<section class="scene" id="cta" data-video="public/landing/video/cta.mp4">
+  <div class="scene__bg">
+    <div class="scene__bg-fallback"></div>
+    <video muted playsinline loop preload="none">
+      <source src="public/landing/video/cta.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="scene__content cta-final">
+    <div class="cta-final__inner">
+      <span class="section-label" data-animate-scale style="transition-delay:0.05s">Let's Begin</span>
+      <h2 data-animate-scale style="transition-delay:0.15s">Let's transform your <em>outdoors.</em></h2>
+      <p class="cta-final__sub" data-animate-scale style="transition-delay:0.25s">Free estimates across West Hartford, Avon, Farmington, Simsbury, Bloomfield and Hartford. Most quotes returned within 24 hours.</p>
+      <form class="estimate-form" id="estimateForm" data-animate-scale style="transition-delay:0.35s" novalidate>
+        <div class="estimate-form__row">
+          <label>Name
+            <input type="text" name="name" required autocomplete="name" placeholder="Your name">
+          </label>
+          <label>Phone or email
+            <input type="text" name="contact" required autocomplete="tel" placeholder="How we'll reach you">
+          </label>
+        </div>
+        <label>What can we help with?
+          <textarea name="message" placeholder="A few lines about your property or project (optional)"></textarea>
+        </label>
+        <button type="submit" class="btn btn--primary estimate-form__submit">Request a Free Estimate</button>
+      </form>
+      <div class="cta-final__actions" data-animate-scale style="transition-delay:0.45s">
+        <a href="tel:+18602451661" class="phone-badge" aria-label="Call (860) 245-1661">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.05 15.05 0 0 1-6.59-6.58l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"/></svg>
+          Or call (860) 245-1661
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ── FOOTER ────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer__grid">
+    <div class="footer__col">
+      <div class="footer__brand">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5c0 1.92 2.05 3.65 4 4 .79.14 1.5.5 2.5.5 0-1.5-1.34-2.74-3-3-3-.5-3-2-3-2 3-2.5 6.5-3 11-3.25z"/></svg>
+        Raupp Landscape
+      </div>
+      <p class="footer__tag">Designing, building and tending exceptional residential landscapes across central Connecticut.</p>
+      <div class="footer__social">
+        <a href="https://share.google/" target="_blank" rel="noopener" aria-label="Google reviews">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.35 11.1h-9.17v2.94h5.27c-.23 1.5-1.7 4.4-5.27 4.4-3.16 0-5.74-2.62-5.74-5.85s2.58-5.85 5.74-5.85c1.8 0 3.01.77 3.7 1.43l2.52-2.43C16.96 4.18 14.83 3.2 12.18 3.2c-5.06 0-9.18 4.12-9.18 9.18s4.12 9.18 9.18 9.18c5.3 0 8.81-3.72 8.81-8.97 0-.6-.06-1.07-.14-1.49z"/></svg>
+        </a>
+        <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.34 4.14.63a5.9 5.9 0 0 0-2.13 1.38A5.9 5.9 0 0 0 .63 4.14C.34 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.27 2.15.56 2.91.3.79.7 1.46 1.38 2.13a5.9 5.9 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.27 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.27-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63C19.1.34 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.84a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+        </a>
+        <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.09 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.97h-1.52c-1.49 0-1.96.93-1.96 1.89v2.27h3.34l-.53 3.49h-2.81V24C19.61 23.09 24 18.1 24 12.07z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer__col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Lawn Care &amp; Maintenance</a></li>
+        <li><a href="#services">Garden Design &amp; Planting</a></li>
+        <li><a href="#services">Hardscaping &amp; Patios</a></li>
+        <li><a href="#services">Landscape Lighting</a></li>
+        <li><a href="#services">Snow Removal</a></li>
+        <li><a href="#services">Seasonal Cleanup</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+18602451661">(860) 245-1661</a></li>
+        <li><a href="mailto:contact@raupplandscape.com">contact@raupplandscape.com</a></li>
+        <li><a href="#cta">Request a Free Estimate</a></li>
+        <li><a href="#hero">West Hartford, CT</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2026 Raupp Landscape. All rights reserved.</span>
+    <span>Licensed &amp; Insured · West Hartford, CT</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const fine = window.matchMedia('(pointer: fine)').matches
+    && window.matchMedia('(min-width: 1024px)').matches
+    && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── Custom cursor ─────────────────────────────────────── */
+  if (fine) {
+    document.body.classList.add('cursor-active');
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    let rx = mx, ry = my;
+
+    document.addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+    }, { passive: true });
+
+    const tick = () => {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+
+    document.addEventListener('mouseleave', () => {
+      dot.style.opacity = '0'; ring.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', () => {
+      dot.style.opacity = '1'; ring.style.opacity = '1';
+    });
+
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest('a, button, .gallery__tile, .service-card, .season-card')) {
+        ring.classList.add('is-hover');
+      }
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest('a, button, .gallery__tile, .service-card, .season-card')) {
+        ring.classList.remove('is-hover');
+      }
+    });
+  }
+
+  /* ── Mobile nav drawer ─────────────────────────────────── */
+  const navToggle = document.getElementById('navToggle');
+  const navDrawer = document.getElementById('navDrawer');
+  if (navToggle && navDrawer) {
+    const setOpen = (open) => {
+      navToggle.classList.toggle('is-open', open);
+      navDrawer.classList.toggle('is-open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+      navDrawer.setAttribute('aria-hidden', String(!open));
+      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      document.body.classList.toggle('nav-open', open);
+    };
+    navToggle.addEventListener('click', () => {
+      setOpen(!navToggle.classList.contains('is-open'));
+    });
+    navDrawer.addEventListener('click', (e) => {
+      if (e.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navToggle.classList.contains('is-open')) setOpen(false);
+    });
+  }
+
+  /* ── Scene video activation ────────────────────────────── */
+  const scenes = [...document.querySelectorAll('.scene')].map((el) => ({
+    el,
+    video: el.querySelector('video') || null,
+  }));
+  const loaded = new WeakSet();
+  let active = null;
+
+  const activate = (scene) => {
+    if (active === scene) return;
+    if (active && active.video) {
+      active.video.pause();
+      active.video.classList.remove('is-active');
+    }
+    active = scene;
+    if (!scene || !scene.video) return;
+    if (!loaded.has(scene.video)) {
+      scene.video.load();
+      loaded.add(scene.video);
+    }
+    const p = scene.video.play();
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+    scene.video.classList.add('is-active');
+  };
+
+  const sceneObserver = new IntersectionObserver((entries) => {
+    let best = null;
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        const match = scenes.find((s) => s.el === e.target);
+        if (match && (!best || e.intersectionRatio > best.ratio)) {
+          best = { scene: match, ratio: e.intersectionRatio };
+        }
+      }
+    });
+    if (best) activate(best.scene);
+  }, { threshold: [0.3, 0.6] });
+
+  scenes.forEach((s) => sceneObserver.observe(s.el));
+
+  /* Quietly drop missing videos so the gradient stays clean */
+  scenes.forEach((s) => {
+    if (!s.video) return;
+    s.video.addEventListener('error', () => {
+      s.video.classList.remove('is-active');
+    });
+    const src = s.video.querySelector('source');
+    if (src) src.addEventListener('error', () => {
+      s.video.classList.remove('is-active');
+    });
+  });
+
+  /* ── Reveal animations ─────────────────────────────────── */
+  const animated = document.querySelectorAll('[data-animate], [data-animate-right], [data-animate-scale]');
+  const animObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  animated.forEach((el) => animObserver.observe(el));
+
+  /* ── Estimate form (mailto compose) ────────────────────── */
+  const estimateForm = document.getElementById('estimateForm');
+  if (estimateForm) {
+    estimateForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!estimateForm.reportValidity()) return;
+      const data = new FormData(estimateForm);
+      const name = (data.get('name') || '').toString().trim();
+      const contact = (data.get('contact') || '').toString().trim();
+      const message = (data.get('message') || '').toString().trim();
+      const subject = `Free Estimate Request — ${name || 'New Inquiry'}`;
+      const body = [
+        `Name: ${name}`,
+        `Phone/Email: ${contact}`,
+        '',
+        message || '(no additional details)',
+      ].join('\n');
+      window.location.href =
+        `mailto:contact@raupplandscape.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+  }
+
+  /* ── Gallery lightbox ──────────────────────────────────── */
+  const tiles = [...document.querySelectorAll('.gallery__tile')];
+  if (tiles.length) {
+    const lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Project image viewer');
+    lb.innerHTML = `
+      <img class="lightbox__img" alt="">
+      <button class="lightbox__btn lightbox__close" aria-label="Close">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <button class="lightbox__btn lightbox__prev" aria-label="Previous image">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <button class="lightbox__btn lightbox__next" aria-label="Next image">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <div class="lightbox__counter"></div>
+    `;
+    document.body.appendChild(lb);
+
+    const lbImg = lb.querySelector('.lightbox__img');
+    const lbCounter = lb.querySelector('.lightbox__counter');
+    const lbClose = lb.querySelector('.lightbox__close');
+    const lbPrev = lb.querySelector('.lightbox__prev');
+    const lbNext = lb.querySelector('.lightbox__next');
+
+    let lbIndex = 0;
+    let lbTrigger = null;
+
+    const lbShow = (i) => {
+      lbIndex = (i + tiles.length) % tiles.length;
+      const tile = tiles[lbIndex];
+      const src = tile.getAttribute('href');
+      const img = tile.querySelector('img');
+      lbImg.src = src;
+      lbImg.alt = (img && img.alt) || '';
+      lbCounter.textContent = `${lbIndex + 1} / ${tiles.length}`;
+    };
+    const lbOpen = (i, trigger) => {
+      lbTrigger = trigger || null;
+      lbShow(i);
+      lb.classList.add('is-open');
+      document.body.classList.add('lightbox-open');
+      lbClose.focus();
+    };
+    const lbCloseFn = () => {
+      lb.classList.remove('is-open');
+      document.body.classList.remove('lightbox-open');
+      if (lbTrigger) lbTrigger.focus();
+    };
+
+    tiles.forEach((tile, i) => {
+      tile.addEventListener('click', (e) => {
+        e.preventDefault();
+        lbOpen(i, tile);
+      });
+    });
+    lbClose.addEventListener('click', lbCloseFn);
+    lbPrev.addEventListener('click', () => lbShow(lbIndex - 1));
+    lbNext.addEventListener('click', () => lbShow(lbIndex + 1));
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb) lbCloseFn();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (!lb.classList.contains('is-open')) return;
+      if (e.key === 'Escape') lbCloseFn();
+      else if (e.key === 'ArrowLeft') lbShow(lbIndex - 1);
+      else if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
+    });
+  }
+
+  /* ── Scroll: progress bar + nav state ──────────────────── */
+  const progress = document.getElementById('progress');
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    progress.style.width = pct + '%';
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+</body>
+</html>
